@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XSHM</title>
+  </head>
+
+  <body>
+    <ul>
+      <li><a href="/">home</a></li>
+      <li><a href="/login/">login</a></li>
+      <li><a href="/secret/">secret</a></li>
+      <li><a href="/test1.html">test 1</a></li>
+      <li><a href="/test2.html">test 2</a></li>
+    </ul>
+    <p>
+      Status: <strong><span id="status"></span></strong>
+    </p>
+    <hr />
+
+    <iframe id="iframe" width="250" height="180" src="/secret/"></iframe>
+    <script>
+      var delay = 500; //ms, let's simulate a bit of a delay, so we do not need to bother to check whether the iframe content has been loaded
+      var origHistoryLength = history.length;
+      console.log("current history length: " + origHistoryLength);
+
+      setTimeout(function () {
+        document.getElementById("iframe").src = "/login/";
+        setTimeout(function () {
+          console.log("new history length: " + history.length);
+          var isHistorySame = history.length === origHistoryLength;
+          document.getElementById("status").innerHTML = isHistorySame
+            ? "NOT logged in"
+            : "logged in";
+          document.getElementById("status").style.color = isHistorySame
+            ? "red"
+            : "green";
+        }, delay);
+      }, delay);
+    </script>
+  </body>
+</html>

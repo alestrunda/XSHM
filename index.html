@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XSHM</title>
+  </head>
+
+  <body>
+    <ul>
+      <li><a href="/">home</a></li>
+      <li><a href="/login">login</a></li>
+      <li><a href="/test1.html">test 1</a></li>
+      <li><a href="/test2.html">test 2</a></li>
+    </ul>
+    <h3>
+      <a
+        href="https://owasp.org/www-community/attacks/Cross_Site_History_Manipulation_(XSHM)"
+        >XSHM (Cross Site History Manipulation)</a
+      >
+      exploit
+    </h3>
+    <p>
+      <a href="test1.html">test 1</a> (does not work in modern browsers, only
+      old IE)
+      <br />
+      <a href="test2.html">test 2</a> (works even in modern browsers)
+    </p>
+    <hr />
+    <h3>Steps of the exploit:</h3>
+    <p>Test 1:</p>
+    <ul>
+      <li>create an iframe</li>
+      <li>
+        set the src attribute of the iframe to the page where a user will be
+        redirected to when he's not logged in
+      </li>
+      <li>save the current history.length</li>
+      <li>
+        change src attribute of the iframe to some page that is protected, hence
+        user not logged in would be redirected to some login page
+      </li>
+      <li>
+        compare the current history.length with the previous one:
+        <ul>
+          <li>
+            if the length is different, that means the history was increased by
+            one - the user is logged in and the protected page was loaded for
+            him, so web browser put a new entry in the history
+          </li>
+          <li>
+            if the length is the same, then he's not logged in, because he was
+            redirected back to the login page - the iframe started at login,
+            then we changed it to some other page that redirected us back to
+            login. Web browser takes that like nothing happened and will not put
+            a new entry in the history.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p>Test 2:</p>
+    <ul>
+      <li>create an iframe</li>
+      <li>set the src attribute of the iframe to some protected page</li>
+      <li>save the current history.length</li>
+      <li>
+        change src attribute of the iframe to the login page where the user
+        would be redirected if he does not have access to the protected page
+      </li>
+      <li>
+        compare the current history.length with the previous one:
+        <ul>
+          <li>
+            if the length is different, that means the history was increased by
+            one - the user is logged in and the protected page was loaded for
+            him, so web browser put a new entry in the history when we changed
+            the src to login
+          </li>
+          <li>
+            if the length is the same, then he's not logged in, because when we
+            loaded the iframe, where he was redirected to the login, then we
+            changed the iframe src to the login page - web browser takes that
+            like nothing happened since we're already there and will not put a
+            new entry in the history
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <hr />
+    <h3>Protection:</h3>
+    <p>
+      use modern browser with high Content-Security-Policy and on the web side
+      do (at least) one from these options:
+    </p>
+    <ul>
+      <li>
+        since the exploit uses iframe, we can use appropritate header to disable
+        loading the web via iframe:
+        <ul>
+          <li>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options"
+              >x-frame-options: SAMEORIGIN</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors"
+              >Content-Security-Policy: frame-ancestors 'none';</a
+            >
+            (not supported in legacy browsers)
+          </li>
+        </ul>
+      </li>
+      <li>
+        when triggering the redirect, add some randomly generated param to the
+        url
+      </li>
+    </ul>
+  </body>
+</html>
