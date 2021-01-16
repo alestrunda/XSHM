@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>XSHM</title>
   </head>
 
-  <body>
-    <ul>
-      <li><a href="/">home</a></li>
-      <li><a href="/login/">login</a></li>
-      <li><a href="/secret/">secret</a></li>
-      <li><a href="/test1.html">test 1</a></li>
-      <li><a href="/test2.html">test 2</a></li>
+  <body class="container">
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="/login/">Login page</a></li>
+      <li class="nav-item"><a class="nav-link" href="/secret/">Secret page</a></li>
+      <li class="nav-item"><a class="nav-link" href="/test1.html">Test 1</a></li>
+      <li class="nav-item"><a class="nav-link" href="/test2.html">Test 2</a></li>
     </ul>
-    <p>
+
+    <div class="alert alert-primary" role="alert">
       Status: <strong><span id="status"></span></strong>
-    </p>
+    </div>
+
     <hr />
 
     <iframe id="iframe" width="250" height="180" src="/login/"></iframe>
