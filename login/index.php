@@ -8,7 +8,7 @@ $is_random_param_protection = @!!$_COOKIE[$cookie_random_param];
 if(isset($_POST[$cookie_login])) {
   $cookie_duration = time() + 3600; //1hr
   $is_logged_in = $_POST[$cookie_login] === "true";
-  $is_random_param_protection = @$_POST[$cookie_random_param] === "true";
+  $is_random_param_protection = !!$_POST[$cookie_random_param];
   setcookie($cookie_login, $is_logged_in ? 1 : 0, $cookie_duration, '/');
   setcookie($cookie_random_param, $is_random_param_protection ? 1 : 0, $cookie_duration, '/');
 }

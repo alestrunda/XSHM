@@ -1,6 +1,6 @@
 <?php
-if(!isset($_COOKIE["logged_in"]) || $_COOKIE["logged_in"] === false) {
-  $location = "Location: /login/" . (isset($_COOKIE["random_param_protection"]) ? "?rnd=" . rand() : "");
+if(!isset($_COOKIE["logged_in"]) || !$_COOKIE["logged_in"]) {
+  $location = "Location: /login/" . (isset($_COOKIE["random_param_protection"]) && $_COOKIE["random_param_protection"] ? "?rnd=" . rand() : "");
   header($location);
   die();
 }
@@ -13,6 +13,6 @@ if(!isset($_COOKIE["logged_in"]) || $_COOKIE["logged_in"] === false) {
 </head>
 
 <body class="container">
-  <p>Secret page available only after login. If not logged in, it redirects to login page.</p>
+  <p>Secret page is accessible only when you're logged in. If not logged in, it redirects to login page.</p>
 </body>
 </html>
