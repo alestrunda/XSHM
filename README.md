@@ -1,6 +1,6 @@
 # XSHM
 
-Example of Cross Site History Manipulation (XSHM) exploit.
+Example of Cross Site History Manipulation (XSHM) exploit. Details are in the index.html page.
 
 Two testing scenarions are available: test1.html and test2.html
 
